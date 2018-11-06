@@ -65,4 +65,22 @@ class IFTTTProtocolController < ApplicationController
     }]
     { data: data }.to_json
   end
+
+  get "/triggers/my_trigger" do
+    data = Thing.all.sort_by(&:created_at).reverse.map(&:to_json).first(params[:limit] || 50)
+    { data: data }.to_json
+  end
+
+  post "/triggers/my_trigger/fields/what_thing/options" do
+    data = [{
+      label: "NFL",
+      value: "nfl"
+    },
+    {
+      label: "MFL",
+      value: "mfl"
+    }]
+    { data: data }.to_json
+  end
+
 end
